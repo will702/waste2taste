@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Waste2Taste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone">
+
+  <div class="page active" id="page-landing">
+    <div class="land-top">
+      <img class="land-logo" src="assets/logo se.jpg" alt="Waste2Taste">
+    </div>
+    <div class="land-bottom">
+      <svg class="wave" viewBox="0 0 390 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 50 Q195 -5 390 50 L390 60 L0 60 Z" fill="#AB2A02"/>
+      </svg>
+      <div class="land-content">
+        <div class="tagline">Sustainable Bites,<br>Delightful Flavors.</div>
+        <button class="btn-start" onclick="goTo('page-login')">Get Started</button>
+      </div>
+    </div>
+    <div class="food-wrap">
+      <img class="food-img" src="assets/nasgor.jpg" alt="Nasi Goreng">
+    </div>
+  </div>
+
+
+  <div class="page" id="page-login">
+    <div class="login-header">
+      <img class="login-logo" src="assets/logo_2.png" alt="Waste2Taste">
+    </div>
+    <div class="login-body">
+      <img class="tomat-deco" src="assets/tomat.png" alt="">
+      <div class="login-card">
+        <div class="login-card-inner">
+          <div class="page-title">Login</div>
+          <div class="inp-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AB2A02" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="3"/>
+              <path d="m2 7 10 7 10-7"/>
+            </svg>
+            <input type="email" placeholder="Email">
+          </div>
+          <div class="inp-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AB2A02" stroke-width="2">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+            </svg>
+            <input type="password" placeholder="Password">
+          </div>
+          <div class="forgot">Forgot Password?</div>
+          <button class="btn-primary" onclick="goTo('page-home')">Login</button>
+          <div class="or-row">
+            <div class="or-line"></div>
+            <div class="or-txt">Or login with</div>
+            <div class="or-line"></div>
+          </div>
+          <div class="social-row">
+            <button class="btn-social">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2">
+                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+              </svg>
+            </button>
+            <button class="btn-social">
+              <svg width="22" height="22" viewBox="0 0 48 48">
+                <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                <path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+              </svg>
+            </button>
+            <button class="btn-social">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.42c1.29.07 2.18.71 2.97.73.94-.2 1.84-.88 3.01-.85 1.41.06 2.47.6 3.15 1.55-2.79 1.71-2.32 5.41.48 6.5-.47 1.37-1.12 2.72-1.61 2.93zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="switch-txt">Don't have an account? <span onclick="goTo('page-signup')">Sign Up</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="page" id="page-signup">
+    <div class="su-header">
+      <button class="back-btn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+        Back to login
+      </button>
+    </div>
+    <div class="su-body">
+      <div class="page-title">Sign Up</div>
+      <div class="inp-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AB2A02" stroke-width="2">
+          <rect x="2" y="4" width="20" height="16" rx="3"/>
+          <path d="m2 7 10 7 10-7"/>
+        </svg>
+        <input type="email" placeholder="Email">
+      </div>
+      <div class="inp-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AB2A02" stroke-width="2">
+          <rect x="5" y="11" width="14" height="10" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+        <input type="password" placeholder="Password">
+      </div>
+      <div class="inp-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AB2A02" stroke-width="2">
+          <rect x="5" y="11" width="14" height="10" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+        <input type="password" placeholder="Confirm Password">
+      </div>
+      <div class="inp-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AB2A02" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="3"/>
+          <circle cx="12" cy="17" r="1" fill="#AB2A02"/>
+        </svg>
+        <input type="tel" placeholder="Phone">
+      </div>
+      <label class="tos-row">
+        <input type="checkbox">
+        <span>I agree with the <a href="#">Privacy Policy</a></span>
+      </label>
+      <div class="or-row su-or-row">
+        <div class="or-line"></div>
+        <div class="or-txt">Or Sign Up with</div>
+        <div class="or-line"></div>
+      </div>
+      <div class="social-row">
+        <button class="btn-social">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2">
+            <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+          </svg>
+        </button>
+        <button class="btn-social">
+          <svg width="22" height="22" viewBox="0 0 48 48">
+            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+            <path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+          </svg>
+        </button>
+        <button class="btn-social">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.42c1.29.07 2.18.71 2.97.73.94-.2 1.84-.88 3.01-.85 1.41.06 2.47.6 3.15 1.55-2.79 1.71-2.32 5.41.48 6.5-.47 1.37-1.12 2.72-1.61 2.93zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+          </svg>
+        </button>
+      </div>
+      <button class="btn-primary" onclick="goTo('page-home')">Sign Up</button>
+      <div class="switch-txt">Already have an account? <span onclick="goBack()">Sign In</span></div>
+    </div>
+  </div>
+
+
+  <div class="page" id="page-home">
+
+    <div class="home-header">
+      <div class="home-hello">Hello, Alvina!</div>
+      <div class="home-sub">Let's cook something delicious today</div>
+    </div>
+
+    <div class="home-body">
+
+      <div class="section-label">Choose your ingredients</div>
+      <div class="section-divider"></div>
+
+      <div class="action-cards">
+        <div class="action-card" onclick="goTo('page-add')">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+          <span>Add Ingredients</span>
+        </div>
+        <div class="action-card" onclick="goTo('page-scan')">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.8">
+            <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>
+            <rect x="7" y="9" width="10" height="6" rx="1"/>
+          </svg>
+          <span>Scan Ingredients</span>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:4px">My ingredients list</div>
+      <div class="section-divider"></div>
+
+      <div class="ingredient-list" id="home-ing-list">
+        <div class="ingredient-card">
+          <img src="assets/rice.png" alt="Rice" class="ing-img">
+          <div class="ing-divider"></div>
+          <span class="ing-name">Rice</span>
+          <div class="ing-qty">
+            <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <span class="qty-num">1</span>
+            <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+        </div>
+        <div class="ingredient-card">
+          <img src="assets/telur.png" alt="Egg" class="ing-img">
+          <div class="ing-divider"></div>
+          <span class="ing-name">Egg</span>
+          <div class="ing-qty">
+            <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <span class="qty-num">2</span>
+            <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+        </div>
+        <div class="ingredient-card">
+          <img src="assets/kikoman.png" alt="Soy Sauce" class="ing-img">
+          <div class="ing-divider"></div>
+          <span class="ing-name">Soy Sauce</span>
+          <div class="ing-qty">
+            <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <span class="qty-num">1</span>
+            <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-start-cook" onclick="goTo('page-recipe')">Start Cook</button>
+
+      <div class="section-label" style="margin-top:4px">
+        Recipe for you
+        <span class="see-more" onclick="goTo('page-recipe')">Show more</span>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="recipe-reco-grid">
+        <div class="recipe-reco-card" onclick="goTo('page-recipe-detail')">
+          <img src="assets/nasgor.jpg" alt="Nasi Goreng" class="recipe-reco-img">
+          <div class="recipe-reco-info">
+            <div class="recipe-reco-name">Nasi Goreng</div>
+            <div class="recipe-reco-meta">20 min • 2 servings</div>
+          </div>
+        </div>
+        <div class="recipe-reco-card" onclick="goTo('page-recipe-detail')">
+          <img src="assets/ramen.png" alt="Ramen" class="recipe-reco-img">
+          <div class="recipe-reco-info">
+            <div class="recipe-reco-name">Ramen</div>
+            <div class="recipe-reco-meta">30 min • 1 serving</div>
+          </div>
+        </div>
+        <div class="recipe-reco-card" onclick="goTo('page-recipe-detail')">
+          <img src="assets/bakmi ayam.png" alt="Bakmi Ayam" class="recipe-reco-img">
+          <div class="recipe-reco-info">
+            <div class="recipe-reco-name">Bakmi Ayam</div>
+            <div class="recipe-reco-meta">25 min • 2 servings</div>
+          </div>
+        </div>
+        <div class="recipe-reco-card" onclick="goTo('page-recipe-detail')">
+          <img src="assets/bibimbap.png" alt="Bibimbap" class="recipe-reco-img">
+          <div class="recipe-reco-info">
+            <div class="recipe-reco-name">Bibimbap</div>
+            <div class="recipe-reco-meta">35 min • 2 servings</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="navbar">
+      <div class="nav-item active" onclick="setNav(this,'page-home')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </div>
+      <div class="nav-item" onclick="setNav(this,'page-recipe')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div class="nav-item" onclick="setNav(this,'page-history')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="nav-item" onclick="setNav(this,'page-profile')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ADD INGREDIENTS PAGE -->
+  <div class="page" id="page-add">
+    <div class="add-header">
+      <button class="back-btn-dark" onclick="goBack()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="add-title">Add Ingredients</div>
+    </div>
+    <div class="add-body">
+      <div class="add-search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#AB2A02" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="add-search" placeholder="Search ingredient..." oninput="filterIngredients(this.value)">
+      </div>
+      <div class="add-section-title">Popular Ingredients</div>
+      <div class="ing-grid" id="ing-grid">
+        <div class="ing-chip" onclick="toggleIng(this,'Rice')"><img src="assets/rice.png" alt="Rice"><span>Rice</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Egg')"><img src="assets/telur.png" alt="Egg"><span>Egg</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Chicken')"><img src="assets/ayam.png" alt="Chicken"><span>Chicken</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Soy Sauce')"><img src="assets/kikoman.png" alt="Soy Sauce"><span>Soy Sauce</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Beef')"><img src="assets/daging.png" alt="Beef"><span>Beef</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Butter')"><img src="assets/butter.png" alt="Butter"><span>Butter</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Tomato')"><img src="assets/tomat.png" alt="Tomato"><span>Tomato</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Paprika')"><img src="assets/paprika.png" alt="Paprika"><span>Paprika</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Salt')"><img src="assets/salt.png" alt="Salt"><span>Salt</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Pepper')"><img src="assets/pepper.png" alt="Pepper"><span>Pepper</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Spam')"><img src="assets/spam.png" alt="Spam"><span>Spam</span></div>
+        <div class="ing-chip" onclick="toggleIng(this,'Bread')"><img src="assets/bage.png" alt="Bread"><span>Bread</span></div>
+      </div>
+      <div class="selected-label" id="selected-label" style="display:none">
+        Selected: <span id="selected-count">0</span> ingredient(s)
+      </div>
+    </div>
+    <div class="add-footer">
+      <button class="btn-add-to-list" onclick="addToList()">Add to My List</button>
+    </div>
+  </div>
+
+
+  <!-- SCAN PAGE -->
+  <div class="page" id="page-scan">
+    <div class="scan-body">
+      <button class="back-btn-dark scan-back" onclick="goBack()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <img src="assets/paprika.png" alt="" class="scan-bg-asset scan-bg-1">
+      <img src="assets/tomat.png" alt="" class="scan-bg-asset scan-bg-2">
+      <img src="assets/ayam.png" alt="" class="scan-bg-asset scan-bg-3">
+      <div class="scan-content">
+        <div class="scan-cam-circle">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.5">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <label class="scan-agree">
+          <input type="checkbox" id="cam-agree">
+          <span>Agree to use camera</span>
+        </label>
+        <div class="scan-title">Let's Start Scanning</div>
+        <div class="scan-card">
+          <div class="scan-card-txt">Do you want to type the ingredients name by yourself?</div>
+          <button class="btn-search-bar" onclick="goTo('page-add')">Go to Add Ingredients</button>
+        </div>
+      </div>
+    </div>
+    <div class="navbar">
+      <div class="nav-item" onclick="setNav(this,'page-home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-recipe')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-history')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    </div>
+  </div>
+
+
+  <!-- RECIPE PLACEHOLDER -->
+  <div class="page" id="page-recipe">
+    <div class="placeholder-page"><div class="placeholder-title">Recipe Page</div><div class="placeholder-sub">coming next...</div><button class="placeholder-back" onclick="goBack()">Back</button></div>
+    <div class="navbar">
+      <div class="nav-item" onclick="setNav(this,'page-home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+      <div class="nav-item active" onclick="setNav(this,'page-recipe')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-history')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-recipe-detail">
+    <div class="placeholder-page"><div class="placeholder-title">Recipe Detail</div><div class="placeholder-sub">coming next...</div><button class="placeholder-back" onclick="goBack()">Back</button></div>
+  </div>
+
+  <div class="page" id="page-history">
+    <div class="placeholder-page"><div class="placeholder-title">History</div><div class="placeholder-sub">coming next...</div></div>
+    <div class="navbar">
+      <div class="nav-item" onclick="setNav(this,'page-home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-recipe')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div class="nav-item active" onclick="setNav(this,'page-history')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-profile">
+    <div class="placeholder-page"><div class="placeholder-title">Profile</div><div class="placeholder-sub">coming next...</div></div>
+    <div class="navbar">
+      <div class="nav-item" onclick="setNav(this,'page-home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-recipe')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div class="nav-item" onclick="setNav(this,'page-history')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="nav-item active" onclick="setNav(this,'page-profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    </div>
+  </div>
+
+  <!-- REMOVE CONFIRM MODAL -->
+  <div class="modal-overlay" id="remove-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-txt">Remove <strong id="modal-ing-name"></strong> from your list?</div>
+      <div class="modal-btns">
+        <button class="modal-btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="modal-btn-remove" onclick="confirmRemove()">Remove</button>
+      </div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
