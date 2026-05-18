@@ -66,6 +66,4 @@ To ensure code integrity and type safety:
 
 ---
 
-## 📝 License
 
-This project is private and proprietary.
