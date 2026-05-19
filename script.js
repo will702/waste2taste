@@ -2,16 +2,25 @@ let pageHistory = ['page-landing'];
 let selectedIngredients = new Set();
 let pendingRemoveCard = null;
 
-function goTo(pageId, back = false) {
-  const current = document.querySelector('.page.active');
-  const next = document.getElementById(pageId);
-  if (!next || current === next) return;
-  current.classList.remove('active');
-  next.classList.add('active');
-  next.classList.remove('slide-in', 'slide-back');
-  void next.offsetWidth;
-  next.classList.add(back ? 'slide-back' : 'slide-in');
-  if (!back) pageHistory.push(pageId);
+function goTo(pageId){
+
+  document.querySelectorAll('.page').forEach(page=>{
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(item=>{
+    item.classList.remove('active');
+
+    if(item.getAttribute('onclick')?.includes(pageId)){
+      item.classList.add('active');
+    }
+  });
+}
+
+function setNav(el,pageId){
+  goTo(pageId);
 }
 
 function goBack() {
