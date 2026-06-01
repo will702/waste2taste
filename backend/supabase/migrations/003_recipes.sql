@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS recipes (
 
 CREATE TABLE IF NOT EXISTS recipe_ingredients (
   recipe_id     TEXT REFERENCES recipes(id) ON DELETE CASCADE,
-  ingredient_id TEXT REFERENCES ingredients(id),
+  ingredient_id TEXT NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
   quantity      TEXT,
   required      BOOLEAN DEFAULT true,
   PRIMARY KEY (recipe_id, ingredient_id)
