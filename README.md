@@ -1,69 +1,120 @@
 # Waste2Taste
 
-Minimize food waste through smart pantry management and recipe generation.
+Minimize food waste through smart pantry management and AI-powered recipe generation.
 
-Waste2Taste is a mobile application built with **Expo**, **React Native**, and **TypeScript** designed to help users track their ingredients and generate creative recipes from what they already have.
+Waste2Taste is a full-stack application that helps users track their ingredients and discover recipes based on what they already have. It features a React Native mobile app, a Node.js API gateway, and a Python-based ML microservice for ingredient detection and recipe ranking.
 
 ---
 
-## 🚀 Getting Started
+## 🏗 System Architecture
 
-### Prerequisites
+```mermaid
+graph TD
+    App[Mobile App - Expo] --> API[API Gateway - Node.js/Hono]
+    API --> DB[(Supabase Postgres)]
+    API --> Auth[Supabase Auth]
+    API --> ML[ML Service - Python/FastAPI]
+    ML --> Vision[Google Cloud Vision API]
+    ML --> HF[HuggingFace Recipes Dataset]
+```
 
-Before you begin, ensure you have the following installed:
+- **Frontend:** Expo/React Native mobile app with file-based routing.
+- **API Gateway (`backend/api`):** Node.js service using Hono. Handles auth, CRUD, and proxies ML requests.
+- **ML Service (`backend/ml`):** Python microservice using FastAPI. Wraps Google Vision for photo scanning and recommends recipes from the `junwatu/indonesian-recipes` dataset.
+
+---
+
+## 🚀 Prerequisites
+
+Ensure you have the following installed:
 - **Node.js** (v20 or later)
-- **npm** or **pnpm**
-- **Expo Go** app (download from App Store or Google Play Store for mobile testing)
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/will702/waste2taste.git
-   cd waste2taste
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+- **Python** (v3.11 or later)
+- **Docker** & **Docker Compose**
+- **Expo Go** app (for mobile testing)
 
 ---
 
-## 🛠 Running the App
+## 🛠 Setup & Installation
 
-1. **Start the Metro Bundler:**
-   ```bash
-   npx expo start
-   ```
+### 1. Backend Setup
 
-2. **Open the app:**
-   - **iOS/Android**: Scan the QR code displayed in the terminal using the **Expo Go** app or your camera.
-   - **Web**: Press `w` in the terminal to open the web version in your browser.
+The easiest way to run the backend services (API + ML) is using Docker Compose.
+
+1.  **Configure Environment Variables:**
+    - Create `backend/api/.env` based on `backend/api/.env.example`.
+    - Create `backend/ml/.env` based on `backend/ml/.env.example`.
+    - Ensure you have your **Supabase** credentials and a **Google Cloud** service account JSON key.
+
+2.  **Start Services:**
+    ```bash
+    cd backend
+    docker compose up --build
+    ```
+    The API will be available at `http://localhost:8080`.
+
+#### (Alternative) Manual Backend Setup
+
+If you prefer to run services manually for debugging:
+
+**API Gateway:**
+```bash
+cd backend/api
+npm install
+npm run dev
+```
+
+**ML Service:**
+```bash
+cd backend/ml
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --port 8001
+```
+
+### 2. Frontend Setup
+
+1.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+2.  **Configure API URL:**
+    Create a `.env` in the root directory (based on `.env.example`) and set:
+    ```
+    EXPO_PUBLIC_API_URL=http://localhost:8080
+    ```
+
+3.  **Start the app:**
+    ```bash
+    npx expo start
+    ```
+    Scan the QR code with **Expo Go** or press `w` for the web version.
 
 ---
 
 ## 🧪 Testing
 
-To ensure code integrity and type safety:
+### Backend API
+```bash
+cd backend/api
+npm test
+```
 
-1. **Run Type Checking:**
-   ```bash
-   npm run typecheck
-   ```
-
-*Note: Unit and integration tests can be added to the `__tests__` directory.*
+### ML Service
+```bash
+cd backend/ml
+source venv/bin/activate
+pytest
+```
 
 ---
 
 ## 📂 Project Structure
 
 - `app/`: Expo Router file-based navigation and screens.
-- `components/`: Reusable UI components.
-- `context/`: React Context for global state (e.g., Pantry state).
-- `data/`: Mock data, catalogs, and theme definitions.
-- `types/`: Global TypeScript interfaces and types.
-
----
-
-
+- `backend/api/`: Node.js API Gateway (Hono).
+- `backend/ml/`: Python ML Microservice (FastAPI).
+- `backend/supabase/migrations/`: SQL database schema.
+- `components/`: Reusable React Native UI components.
+- `docs/superpowers/`: Detailed architecture specs and implementation plans.

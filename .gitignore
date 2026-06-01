@@ -1,5 +1,11 @@
 node_modules/
 .expo/
+
+# Environment secrets — never commit
+.env
+.env.local
+backend/api/.env
+backend/ml/.env
 dist/
 web-build/
 npm-debug.log*
