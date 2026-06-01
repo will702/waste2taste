@@ -1,13 +1,15 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { Text, View } from "react-native";
 
 import { colors } from "@/data/theme";
 
-const tabs = {
-  home: "Home",
-  recipes: "Recipes",
-  history: "History",
-  profile: "Profile"
+type TabName = "home" | "recipes" | "history" | "profile";
+
+const tabIcons: Record<TabName, { active: keyof typeof Ionicons.glyphMap; inactive: keyof typeof Ionicons.glyphMap }> = {
+  home:    { active: "home",   inactive: "home-outline" },
+  recipes: { active: "book",   inactive: "book-outline" },
+  history: { active: "time",   inactive: "time-outline" },
+  profile: { active: "person", inactive: "person-outline" }
 };
 
 export default function TabsLayout() {
@@ -18,11 +20,9 @@ export default function TabsLayout() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
-          left: "50%",
+          left: "4%",
+          right: "4%",
           bottom: 14,
-          width: "92%",
-          maxWidth: 402,
-          transform: [{ translateX: -201 }],
           height: 62,
           borderRadius: 31,
           borderCurve: "continuous",
@@ -30,21 +30,17 @@ export default function TabsLayout() {
           borderTopWidth: 0,
           boxShadow: "0 8px 28px rgba(0,0,0,0.28)"
         },
-        tabBarIcon: ({ focused }) => (
-          <View style={{ alignItems: "center", justifyContent: "center", gap: 5 }}>
-            <Text selectable style={{ color: focused ? colors.white : "rgba(255,255,255,0.42)", fontSize: 12, fontWeight: "900" }}>
-              {tabs[route.name as keyof typeof tabs]?.slice(0, 1)}
-            </Text>
-            <View
-              style={{
-                width: 18,
-                height: 3,
-                borderRadius: 2,
-                backgroundColor: focused ? colors.white : "transparent"
-              }}
+        tabBarIcon: ({ focused }) => {
+          const icons = tabIcons[route.name as TabName];
+          if (!icons) return null;
+          return (
+            <Ionicons
+              name={focused ? icons.active : icons.inactive}
+              size={22}
+              color={focused ? colors.white : "rgba(255,255,255,0.42)"}
             />
-          </View>
-        )
+          );
+        }
       })}
     >
       <Tabs.Screen name="home" options={{ title: "Home" }} />

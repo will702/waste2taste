@@ -56,27 +56,6 @@
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; }
 
-.nav-item{
-  position: relative;
-  color: rgba(255,255,255,0.6);
-  transition: 0.2s;
-}
-
-.nav-item.active{
-  color: #fff;
-}
-
-.nav-item.active::after{
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 18px;
-  height: 3px;
-  background: white;
-  border-radius: 999px;
-}
 
 /* landing page  */
   
@@ -193,8 +172,9 @@
   }
 
   .login-logo {
-    width: 500px;
-    height: 135px;
+    width: auto;
+    max-width: 100%;
+    height: 90px;
     object-fit: contain;
   }
   
@@ -303,13 +283,13 @@
     padding: 14px;
     font-family: var(--font);
     font-size: 13px;
-    font-weight: 300;
-    letter-spacing: 0.7px; 
+    font-weight: 600;
+    letter-spacing: 0.7px;
     cursor: pointer;
     width: 100%;
     transition: transform .15s;
   }
-  
+
   .btn-primary:active {
     transform: scale(.97);
   }
@@ -605,7 +585,7 @@
 
   .recipe-reco-info { padding: 8px 10px; }
 
-  .recipe-reco-name { font-size: 12px; font-weight: 700; color: var(--red); }
+  .recipe-reco-name { font-size: 13px; font-weight: 700; color: var(--red); }
 
   .recipe-reco-meta { font-size: 10px; color: #9a6840; margin-top: 2px; }
 
@@ -642,6 +622,8 @@
     content: '';
     position: absolute;
     bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 18px; height: 2.5px;
     background: #fff;
     border-radius: 2px;

@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
@@ -51,8 +52,8 @@ export default function HomeScreen() {
 
       <SectionTitle title="Choose your ingredients" />
       <View style={{ flexDirection: "row", gap: 12 }}>
-        <ActionCard label="Add Ingredients" detail="Search pantry items" onPress={() => router.push("/add-ingredients")} />
-        <ActionCard label="Scan Ingredients" detail="Simulate camera scan" onPress={() => router.push("/scan")} />
+        <ActionCard label="Add Ingredients" detail="Search pantry items" icon="add-circle-outline" onPress={() => router.push("/add-ingredients")} />
+        <ActionCard label="Scan Ingredients" detail="Simulate camera scan" icon="scan-outline" onPress={() => router.push("/scan")} />
       </View>
 
       <SectionTitle title="My ingredients list" />
@@ -90,7 +91,17 @@ export default function HomeScreen() {
   );
 }
 
-function ActionCard({ label, detail, onPress }: { label: string; detail: string; onPress: () => void }) {
+function ActionCard({
+  label,
+  detail,
+  icon,
+  onPress
+}: {
+  label: string;
+  detail: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  onPress: () => void;
+}) {
   return (
     <Pressable
       onPress={onPress}
@@ -117,7 +128,7 @@ function ActionCard({ label, detail, onPress }: { label: string; detail: string;
           justifyContent: "center"
         }}
       >
-        <View style={{ width: 16, height: 16, borderRadius: 5, backgroundColor: colors.cream }} />
+        <Ionicons name={icon} size={20} color={colors.cream} />
       </View>
       <View style={{ gap: 2 }}>
         <Text selectable style={{ color: colors.cream, fontSize: 14, fontWeight: "900" }}>
