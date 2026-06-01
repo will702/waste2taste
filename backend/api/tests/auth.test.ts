@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 
 // Mock Supabase before importing routes
 vi.mock('@supabase/supabase-js', () => ({
@@ -78,5 +78,17 @@ describe('GET /auth/me', () => {
   it('returns 401 without token', async () => {
     const res = await auth.request('/me')
     expect(res.status).toBe(401)
+  })
+})
+
+describe('POST /auth/logout', () => {
+  it('returns 200 with logged out message', async () => {
+    const res = await auth.request('/logout', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer token-abc' },
+    })
+    expect(res.status).toBe(200)
+    const json = await res.json() as any
+    expect(json.message).toBe('logged out')
   })
 })

@@ -29,14 +29,17 @@ auth.post('/register', async (c) => {
 
 auth.post('/login', async (c) => {
   const { email, password } = await c.req.json<{ email: string; password: string }>()
+  if (!email || !password) {
+    return c.json({ error: 'email and password required' }, 400)
+  }
 
   const { data, error } = await anonClient().auth.signInWithPassword({ email, password })
   if (error) return c.json({ error: error.message }, 401)
 
   return c.json({
-    user: { id: data.user.id, email: data.user.email },
-    access_token: data.session.access_token,
-    refresh_token: data.session.refresh_token,
+    user: { id: data.user?.id, email: data.user?.email },
+    access_token: data.session?.access_token,
+    refresh_token: data.session?.refresh_token,
   })
 })
 
