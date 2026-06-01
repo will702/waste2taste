@@ -56,6 +56,27 @@
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; }
 
+.nav-item{
+  position: relative;
+  color: rgba(255,255,255,0.6);
+  transition: 0.2s;
+}
+
+.nav-item.active{
+  color: #fff;
+}
+
+.nav-item.active::after{
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 3px;
+  background: white;
+  border-radius: 999px;
+}
 
 /* landing page  */
   
