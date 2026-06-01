@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+google-cloud-vision
+python-dotenv
+httpx
+pytest
+pytest-asyncio
+pydantic
