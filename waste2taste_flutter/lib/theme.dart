@@ -21,7 +21,7 @@ class AppColors {
   static const Color ink = Color(0xFF351609);
   static const Color muted = Color(0xFF8B5A35);
   static const Color paper = Color(0xFFFFF6DF);
-  static const Color line = Color(0x2FAB2A02); // rgba(171,42,2,0.18)
+  static const Color line = Color(0x2DAB2A02); // rgba(171,42,2,0.18)
 }
 
 /// ThemeExtension for brand colors not in M3 palette.
