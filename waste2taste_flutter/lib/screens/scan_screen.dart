@@ -85,7 +85,6 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
           TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
-              Navigator.of(context).pop();
               context.go('/app/add-ingredients');
             },
             child: const Text('Search manually'),

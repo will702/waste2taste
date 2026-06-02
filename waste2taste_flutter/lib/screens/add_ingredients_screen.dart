@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/catalog.dart';
+import '../models/ingredient.dart';
 import '../providers/pantry_provider.dart';
 import '../theme.dart';
 import '../widgets/app_button.dart';
@@ -39,7 +40,7 @@ class _AddIngredientsScreenState
     super.dispose();
   }
 
-  List<dynamic> get _filtered {
+  List<Ingredient> get _filtered {
     final q = _query.trim().toLowerCase();
     if (q.isEmpty) return catalogIngredients;
     return catalogIngredients
