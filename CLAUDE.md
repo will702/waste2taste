@@ -4,18 +4,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this project is
 
-Waste2Taste: mobile app (Expo + React Native) for pantry management and waste-reducing recipe generation. Three independently deployable pieces:
+Waste2Taste: mobile app for pantry management and waste-reducing recipe generation. Four independently deployable pieces:
 
-- **Expo frontend** — `app/`, `components/`, `context/`, `data/`
+- **Flutter frontend** — `waste2taste_flutter/` (Material 3, Riverpod, GoRouter, ML Kit) — **active frontend**
+- **Expo frontend** — `app/`, `components/`, `context/`, `data/` — legacy, kept for reference
 - **Node.js API gateway** — `backend/api/` (Hono, TypeScript, Cloud Run)
 - **Python ML service** — `backend/ml/` (FastAPI, internal-only Cloud Run)
-- **Web mockup** — `index.html` + `style.css` + `script.js` (standalone prototype, not part of the RN app)
+- **Web mockup** — `index.html` + `style.css` + `script.js` (standalone prototype)
 
 ---
 
 ## Commands
 
-### Expo frontend (root)
+### Flutter frontend (`waste2taste_flutter/`)
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs   # regenerate freezed/.g.dart
+flutter analyze           # static analysis (must be clean)
+flutter test              # widget tests
+flutter run -d android    # run on Android emulator/device
+flutter run -d iphone     # run on iOS simulator
+```
+
+Pass `--dart-define=API_URL=http://10.0.2.2:8080` for Android emulator local dev (maps to host's localhost).
+
+### Expo frontend (root) — legacy
 ```bash
 npm install
 npx expo start          # Metro bundler — press w (web), i (iOS), a (Android)
@@ -58,7 +71,12 @@ docker compose up       # api on :8080, ml on :8001
 2. Proxies `POST /recommend` to the ML service with pantry ingredient IDs
 3. ML service scores recipes from in-memory HuggingFace DataFrame, returns top 10 with `match_pct`
 
-**Ingredient Scan:**
+**Ingredient Scan (Flutter — on-device):**
+1. Flutter ML Kit `ImageLabeler` processes photo on-device (no network, confidenceThreshold: 0.70)
+2. Labels fuzzy-matched against `ingredient_aliases.dart` via `string_similarity` (threshold: 0.80)
+3. Matched catalog IDs added to pantry via `pantryProvider.addIngredients()`
+
+**Ingredient Scan (Expo legacy — cloud):**
 1. Mobile sends `POST /ml/detect` with base64 JPEG
 2. API proxies to `POST /detect` on ML service
 3. ML service calls Google Vision API, fuzzy-matches labels to `INGREDIENT_ALIASES`, returns catalog IDs
@@ -85,13 +103,17 @@ Any new ingredients or recipes must be added there first, then re-seeded.
 
 `backend/ml/main.py` uses FastAPI `lifespan` to load `junwatu/indonesian-recipes` from HuggingFace once at container start (~3–5s cold start). The DataFrame is cached in a module-level `_df` in `services/dataset.py`. All `/recommend` calls use this cache — no DB or network calls at inference time.
 
-### Frontend state (not yet wired to backend)
+### Flutter frontend state
 
-`context/PantryContext.tsx` manages pantry state in-memory. The backend is built but the frontend still uses this context. Connecting them requires:
-- Replace context state mutations with `fetch` calls to `/pantry/*`
-- Wire `login.tsx` / `signup.tsx` to `/auth/login` and `/auth/register`
-- Store JWT via `expo-secure-store`
-- Wire `scan.tsx` to `POST /ml/detect`
+Riverpod `AsyncNotifierProvider` manages all state. All providers are wired to the backend API:
+- `authProvider` — JWT stored in `flutter_secure_storage`, bootstraps on startup
+- `pantryProvider` — optimistic updates with rollback on error
+- `recipesProvider` / `recommendationsProvider` — auto-recompute when pantry changes
+- `historyProvider` — logs cooked meals to API
+
+### Expo frontend state (legacy, not wired to backend)
+
+`context/PantryContext.tsx` manages pantry state in-memory. Kept for reference only.
 
 ### Database RLS
 
@@ -119,3 +141,4 @@ Required for `backend/ml`:
 - `docs/backend/database.md` — schema, RLS policies, indexes, migration order
 - `backend/DEPLOY.md` — Cloud Run deployment guide
 - `docs/superpowers/specs/2026-06-01-backend-design.md` — approved backend architecture spec
+- `docs/superpowers/specs/2026-06-02-flutter-migration-design.md` — Flutter migration design spec
