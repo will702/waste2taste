@@ -5,7 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'providers/auth_provider.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
+import 'screens/history_screen.dart';
+import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/recipes_screen.dart';
 export 'providers/auth_provider.dart' show authProvider;
 
 // ---------------------------------------------------------------------------
@@ -29,35 +33,7 @@ abstract final class AppRoutes {
 // ---------------------------------------------------------------------------
 // Placeholder screens — will be replaced in later phases
 // ---------------------------------------------------------------------------
-// Landing, Login, and Signup are now real screens imported above.
-
-class _HomeScreen extends StatelessWidget {
-  const _HomeScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('HomeScreen')));
-}
-
-class _RecipesScreen extends StatelessWidget {
-  const _RecipesScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('RecipesScreen')));
-}
-
-class _HistoryScreen extends StatelessWidget {
-  const _HistoryScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('HistoryScreen')));
-}
-
-class _ProfileScreen extends StatelessWidget {
-  const _ProfileScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('ProfileScreen')));
-}
+// Landing, Login, Signup, Home, Recipes, History, and Profile are real screens.
 
 class _AddIngredientsScreen extends StatelessWidget {
   const _AddIngredientsScreen();
@@ -161,7 +137,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: AppRoutes.home,
-                builder: (context, state) => const _HomeScreen(),
+                builder: (context, state) => const HomeScreen(),
               ),
             ],
           ),
@@ -169,7 +145,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: AppRoutes.recipes,
-                builder: (context, state) => const _RecipesScreen(),
+                builder: (context, state) => const RecipesScreen(),
               ),
             ],
           ),
@@ -177,7 +153,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: AppRoutes.history,
-                builder: (context, state) => const _HistoryScreen(),
+                builder: (context, state) => const HistoryScreen(),
               ),
             ],
           ),
@@ -185,7 +161,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: AppRoutes.profile,
-                builder: (context, state) => const _ProfileScreen(),
+                builder: (context, state) => const ProfileScreen(),
               ),
             ],
           ),
