@@ -18,7 +18,10 @@ class PantryNotifier extends AsyncNotifier<List<PantryItem>> {
     final prev = state;
     state = AsyncData([
       ...state.valueOrNull ?? [],
-      PantryItem(id: 'temp', ingredientId: ingredientId, quantity: quantity),
+      PantryItem(
+          id: 'temp_${ingredientId}_${DateTime.now().millisecondsSinceEpoch}',
+          ingredientId: ingredientId,
+          quantity: quantity),
     ]);
     try {
       final api = ref.read(apiClientProvider);
@@ -34,8 +37,28 @@ class PantryNotifier extends AsyncNotifier<List<PantryItem>> {
   }
 
   Future<void> addIngredients(List<String> ids) async {
-    for (final id in ids) {
-      await addIngredient(id);
+    if (ids.isEmpty) return;
+    final prev = state;
+    // Optimistic: add all immediately
+    final existing = state.valueOrNull ?? [];
+    final newItems = ids
+        .where((id) => !existing.any((i) => i.ingredientId == id))
+        .map((id) => PantryItem(
+              id: 'temp_${id}_${DateTime.now().millisecondsSinceEpoch}',
+              ingredientId: id,
+              quantity: 1,
+            ))
+        .toList();
+    state = AsyncData([...existing, ...newItems]);
+    try {
+      final api = ref.read(apiClientProvider);
+      for (final id in ids) {
+        await api.post('/pantry', data: {'ingredient_id': id, 'quantity': 1});
+      }
+      ref.invalidateSelf(); // refresh once after all adds
+    } catch (e) {
+      state = prev;
+      rethrow;
     }
   }
 
