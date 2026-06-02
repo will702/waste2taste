@@ -1,0 +1,23 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'user.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
+    _$AppUserImpl(
+      id: json['id'] as String,
+      email: json['email'] as String,
+      accessToken: json['access_token'] as String?,
+      refreshToken: json['refresh_token'] as String?,
+    );
+
+Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'email': instance.email,
+      'access_token': instance.accessToken,
+      'refresh_token': instance.refreshToken,
+    };
