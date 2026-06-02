@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-// TODO(Phase 4): Replace this stub with a real auth provider that reads the
-// stored JWT from flutter_secure_storage.
-final authProvider = StateProvider<bool>((ref) => false);
+import 'providers/auth_provider.dart';
+export 'providers/auth_provider.dart' show authProvider;
 
 // ---------------------------------------------------------------------------
 // Route paths
@@ -131,7 +130,7 @@ class _AppShell extends StatelessWidget {
 // Router provider
 // ---------------------------------------------------------------------------
 final routerProvider = Provider<GoRouter>((ref) {
-  final isAuthenticated = ref.watch(authProvider);
+  final authAsync = ref.watch(authProvider);
 
   return GoRouter(
     initialLocation: AppRoutes.landing,
@@ -141,6 +140,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       // Skip redirect for landing page
       if (location == AppRoutes.landing) return null;
 
+      // While auth state is loading, don't redirect
+      if (authAsync.isLoading) return null;
+
+      final isAuthenticated = authAsync.valueOrNull != null;
       final isAppRoute = location.startsWith('/app');
       final isAuthRoute =
           location == AppRoutes.login || location == AppRoutes.signup;
