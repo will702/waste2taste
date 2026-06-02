@@ -16,25 +16,31 @@ class MlKitService {
     final inputImage = InputImage.fromFilePath(imagePath);
     final labels = await _labeler.processImage(inputImage);
 
-    final detected = <String>[];
+    final detected = <String>{};
     for (final label in labels) {
       final matched = _matchLabelToAlias(label.label.toLowerCase().trim());
-      if (matched != null && !detected.contains(matched)) {
+      if (matched != null) {
         detected.add(matched);
       }
     }
-    return detected;
+    return detected.toList();
   }
 
   /// Fuzzy-matches a label string against ingredientAliases map.
+  /// Returns the catalog ID with the highest similarity score above threshold.
   String? _matchLabelToAlias(String label) {
+    String? bestMatch;
+    double bestScore = 0;
     for (final entry in ingredientAliases.entries) {
       for (final alias in entry.value) {
         final score = label.similarityTo(alias);
-        if (score >= _similarityThreshold) return entry.key;
+        if (score >= _similarityThreshold && score > bestScore) {
+          bestScore = score;
+          bestMatch = entry.key;
+        }
       }
     }
-    return null;
+    return bestMatch;
   }
 
   Future<void> dispose() => _labeler.close();

@@ -14,11 +14,9 @@ class AppConfig {
 /// Dio interceptor that attaches the JWT bearer token to every outgoing request
 /// and handles 401 responses by clearing stored credentials.
 class AuthInterceptor extends Interceptor {
-  AuthInterceptor(this._storage, this._dio);
+  AuthInterceptor(this._storage);
 
   final StorageService _storage;
-  // ignore: unused_field
-  final Dio _dio;
 
   @override
   Future<void> onRequest(
@@ -60,9 +58,10 @@ class ApiClient {
   ApiClient(this._storage);
 
   final StorageService _storage;
-  late final Dio _dio;
+  Dio? _dio;
 
   void init() {
+    if (_dio != null) return;
     _dio = Dio(
       BaseOptions(
         baseUrl: AppConfig.apiUrl,
@@ -71,20 +70,20 @@ class ApiClient {
         headers: {'Content-Type': 'application/json'},
       ),
     );
-    _dio.interceptors.add(AuthInterceptor(_storage, _dio));
+    _dio!.interceptors.add(AuthInterceptor(_storage));
   }
 
   Future<Response<T>> get<T>(
     String path, {
     Map<String, dynamic>? queryParameters,
   }) =>
-      _dio.get<T>(path, queryParameters: queryParameters);
+      _dio!.get<T>(path, queryParameters: queryParameters);
 
   Future<Response<T>> post<T>(String path, {dynamic data}) =>
-      _dio.post<T>(path, data: data);
+      _dio!.post<T>(path, data: data);
 
   Future<Response<T>> put<T>(String path, {dynamic data}) =>
-      _dio.put<T>(path, data: data);
+      _dio!.put<T>(path, data: data);
 
-  Future<Response<T>> delete<T>(String path) => _dio.delete<T>(path);
+  Future<Response<T>> delete<T>(String path) => _dio!.delete<T>(path);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class StorageService {
-  static const _storage = FlutterSecureStorage();
+  static final _storage = FlutterSecureStorage();
   static const _accessTokenKey = 'access_token';
   static const _refreshTokenKey = 'refresh_token';
 
