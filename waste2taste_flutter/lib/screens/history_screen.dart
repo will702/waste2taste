@@ -55,7 +55,11 @@ class HistoryScreen extends ConsumerWidget {
               Expanded(
                 child: MetricPill(
                   label: 'items saved',
-                  value: historyCount.toString(),
+                  value: historyAsync.valueOrNull
+                          ?.where((m) => m.saved == true)
+                          .length
+                          .toString() ??
+                      '0',
                 ),
               ),
             ],

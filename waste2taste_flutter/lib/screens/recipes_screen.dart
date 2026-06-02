@@ -90,26 +90,40 @@ class RecipesScreen extends ConsumerWidget {
               'Failed to load recommendations',
               style: TextStyle(color: AppColors.muted),
             ),
-            data: (recs) => LayoutBuilder(
-              builder: (context, constraints) {
-                final cardWidth = (constraints.maxWidth - 12) / 2;
-                return Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: recs
-                      .map(
-                        (r) => SizedBox(
-                          width: cardWidth,
-                          child: RecipeCard(
-                            recipe: r,
-                            onTap: () => context.go('/app/recipe/${r.id}'),
-                          ),
-                        ),
-                      )
-                      .toList(),
+            data: (recs) {
+              if (recs.isEmpty) {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(32),
+                    child: Text(
+                      'Add ingredients to your pantry to see recipe matches.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: AppColors.muted, fontSize: 14),
+                    ),
+                  ),
                 );
-              },
-            ),
+              }
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  final cardWidth = (constraints.maxWidth - 12) / 2;
+                  return Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: recs
+                        .map(
+                          (r) => SizedBox(
+                            width: cardWidth,
+                            child: RecipeCard(
+                              recipe: r,
+                              onTap: () => context.go('/app/recipe/${r.id}'),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  );
+                },
+              );
+            },
           ),
 
           // Bottom padding for nav bar

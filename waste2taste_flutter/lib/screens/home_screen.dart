@@ -23,7 +23,7 @@ class HomeScreen extends ConsumerWidget {
     final pantryAsync = ref.watch(pantryProvider);
     final recsAsync = ref.watch(recommendationsProvider);
 
-    final email = authAsync.valueOrNull?.email ?? 'there';
+    final email = authAsync.valueOrNull?.email ?? 'Guest';
     final pantryCount = pantryAsync.valueOrNull?.length ?? 0;
     final recsCount = recsAsync.valueOrNull?.length ?? 0;
 
