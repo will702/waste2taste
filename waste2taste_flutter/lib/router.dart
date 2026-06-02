@@ -3,13 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'providers/auth_provider.dart';
+import 'screens/add_ingredients_screen.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
 import 'screens/history_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/recipe_detail_screen.dart';
 import 'screens/recipes_screen.dart';
+import 'screens/scan_screen.dart';
 export 'providers/auth_provider.dart' show authProvider;
 
 // ---------------------------------------------------------------------------
@@ -28,33 +31,6 @@ abstract final class AppRoutes {
   static const recipeDetail = '/app/recipe/:id';
 
   static String recipeDetailPath(String id) => '/app/recipe/$id';
-}
-
-// ---------------------------------------------------------------------------
-// Placeholder screens — will be replaced in later phases
-// ---------------------------------------------------------------------------
-// Landing, Login, Signup, Home, Recipes, History, and Profile are real screens.
-
-class _AddIngredientsScreen extends StatelessWidget {
-  const _AddIngredientsScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('AddIngredientsScreen')));
-}
-
-class _ScanScreen extends StatelessWidget {
-  const _ScanScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('ScanScreen')));
-}
-
-class _RecipeDetailScreen extends StatelessWidget {
-  const _RecipeDetailScreen({required this.id});
-  final String id;
-  @override
-  Widget build(BuildContext context) =>
-      Scaffold(body: Center(child: Text('RecipeDetailScreen: $id')));
 }
 
 // ---------------------------------------------------------------------------
@@ -169,17 +145,17 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.addIngredients,
-        builder: (context, state) => const _AddIngredientsScreen(),
+        builder: (context, state) => const AddIngredientsScreen(),
       ),
       GoRoute(
         path: AppRoutes.scan,
-        builder: (context, state) => const _ScanScreen(),
+        builder: (context, state) => const ScanScreen(),
       ),
       GoRoute(
         path: AppRoutes.recipeDetail,
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';
-          return _RecipeDetailScreen(id: id);
+          return RecipeDetailScreen(recipeId: id);
         },
       ),
     ],
