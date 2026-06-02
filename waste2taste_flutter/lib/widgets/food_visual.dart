@@ -7,8 +7,13 @@ import '../models/recipe.dart';
 import '../theme.dart';
 
 Color _parseHex(String hex) {
-  final h = hex.replaceAll('#', '');
-  return Color(int.parse('FF$h', radix: 16));
+  try {
+    final h = hex.replaceAll('#', '');
+    if (h.length != 6) return const Color(0xFFAB2A02);
+    return Color(int.parse('FF$h', radix: 16));
+  } catch (_) {
+    return const Color(0xFFAB2A02);
+  }
 }
 
 /// Circular glyph representing an ingredient.

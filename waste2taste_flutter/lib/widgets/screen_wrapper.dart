@@ -24,7 +24,7 @@ class ScreenWrapper extends StatelessWidget {
     if (!scroll) {
       return Scaffold(
         backgroundColor: bg,
-        body: SafeArea(child: child),
+        body: SafeArea(child: Padding(padding: padding, child: child)),
       );
     }
     return Scaffold(
