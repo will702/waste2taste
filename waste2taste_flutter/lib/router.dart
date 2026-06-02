@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'providers/auth_provider.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/signup_screen.dart';
+import 'screens/landing_screen.dart';
 export 'providers/auth_provider.dart' show authProvider;
 
 // ---------------------------------------------------------------------------
@@ -26,26 +29,7 @@ abstract final class AppRoutes {
 // ---------------------------------------------------------------------------
 // Placeholder screens — will be replaced in later phases
 // ---------------------------------------------------------------------------
-class _LandingScreen extends StatelessWidget {
-  const _LandingScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('LandingScreen')));
-}
-
-class _LoginScreen extends StatelessWidget {
-  const _LoginScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('LoginScreen')));
-}
-
-class _SignupScreen extends StatelessWidget {
-  const _SignupScreen();
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('SignupScreen')));
-}
+// Landing, Login, and Signup are now real screens imported above.
 
 class _HomeScreen extends StatelessWidget {
   const _HomeScreen();
@@ -159,15 +143,15 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: AppRoutes.landing,
-        builder: (context, state) => const _LandingScreen(),
+        builder: (context, state) => const LandingScreen(),
       ),
       GoRoute(
         path: AppRoutes.login,
-        builder: (context, state) => const _LoginScreen(),
+        builder: (context, state) => const LoginScreen(),
       ),
       GoRoute(
         path: AppRoutes.signup,
-        builder: (context, state) => const _SignupScreen(),
+        builder: (context, state) => const SignupScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
