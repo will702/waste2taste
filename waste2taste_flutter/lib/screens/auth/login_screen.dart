@@ -6,6 +6,7 @@ import '../../providers/auth_provider.dart';
 import '../../theme.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/brand_mark.dart';
+import 'auth_input.dart';
 
 /// Login screen — port of app/login.tsx.
 /// Red background with BrandMark at top, yellow rounded panel with form below.
@@ -84,13 +85,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      _AuthInput(
+                      AuthInput(
                         controller: _emailController,
                         hint: 'Email',
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 12),
-                      _AuthInput(
+                      AuthInput(
                         controller: _passwordController,
                         hint: 'Password',
                         obscure: true,
@@ -179,52 +180,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-// ── Private widgets ────────────────────────────────────────────────────────────
-
-class _AuthInput extends StatelessWidget {
-  const _AuthInput({
-    required this.controller,
-    required this.hint,
-    this.obscure = false,
-    this.keyboardType,
-  });
-
-  final TextEditingController controller;
-  final String hint;
-  final bool obscure;
-  final TextInputType? keyboardType;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: obscure,
-      keyboardType: keyboardType,
-      minLines: 1,
-      maxLines: 1,
-      decoration: InputDecoration(
-        hintText: hint,
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide.none,
         ),
       ),
     );

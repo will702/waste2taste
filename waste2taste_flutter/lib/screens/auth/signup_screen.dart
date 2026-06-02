@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../providers/auth_provider.dart';
 import '../../theme.dart';
 import '../../widgets/app_button.dart';
+import 'auth_input.dart';
 
 /// Signup screen — port of app/signup.tsx.
 /// Layout mirrors login: red background with yellow rounded panel.
@@ -110,25 +111,25 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      _AuthInput(
+                      AuthInput(
                         controller: _emailController,
                         hint: 'Email',
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 12),
-                      _AuthInput(
+                      AuthInput(
                         controller: _passwordController,
                         hint: 'Password',
                         obscure: true,
                       ),
                       const SizedBox(height: 12),
-                      _AuthInput(
+                      AuthInput(
                         controller: _confirmController,
                         hint: 'Confirm Password',
                         obscure: true,
                       ),
                       const SizedBox(height: 12),
-                      _AuthInput(
+                      AuthInput(
                         controller: _phoneController,
                         hint: 'Phone (optional)',
                         keyboardType: TextInputType.phone,
@@ -194,48 +195,3 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   }
 }
 
-// ── Private widgets ────────────────────────────────────────────────────────────
-
-class _AuthInput extends StatelessWidget {
-  const _AuthInput({
-    required this.controller,
-    required this.hint,
-    this.obscure = false,
-    this.keyboardType,
-  });
-
-  final TextEditingController controller;
-  final String hint;
-  final bool obscure;
-  final TextInputType? keyboardType;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: obscure,
-      keyboardType: keyboardType,
-      minLines: 1,
-      maxLines: 1,
-      decoration: InputDecoration(
-        hintText: hint,
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide.none,
-        ),
-      ),
-    );
-  }
-}
