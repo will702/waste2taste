@@ -25,7 +25,7 @@ mixin _$CookedMeal {
   String get recipeId => throw _privateConstructorUsedError;
   @JsonKey(name: 'cooked_at')
   DateTime get cookedAt => throw _privateConstructorUsedError;
-  String? get saved => throw _privateConstructorUsedError;
+  bool? get saved => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
 
   /// Serializes this CookedMeal to a JSON map.
@@ -48,7 +48,7 @@ abstract class $CookedMealCopyWith<$Res> {
       {String id,
       @JsonKey(name: 'recipe_id') String recipeId,
       @JsonKey(name: 'cooked_at') DateTime cookedAt,
-      String? saved,
+      bool? saved,
       String? notes});
 }
 
@@ -89,7 +89,7 @@ class _$CookedMealCopyWithImpl<$Res, $Val extends CookedMeal>
       saved: freezed == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -110,7 +110,7 @@ abstract class _$$CookedMealImplCopyWith<$Res>
       {String id,
       @JsonKey(name: 'recipe_id') String recipeId,
       @JsonKey(name: 'cooked_at') DateTime cookedAt,
-      String? saved,
+      bool? saved,
       String? notes});
 }
 
@@ -149,7 +149,7 @@ class __$$CookedMealImplCopyWithImpl<$Res>
       saved: freezed == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$CookedMealImpl implements _CookedMeal {
   @JsonKey(name: 'cooked_at')
   final DateTime cookedAt;
   @override
-  final String? saved;
+  final bool? saved;
   @override
   final String? notes;
 
@@ -229,7 +229,7 @@ abstract class _CookedMeal implements CookedMeal {
       {required final String id,
       @JsonKey(name: 'recipe_id') required final String recipeId,
       @JsonKey(name: 'cooked_at') required final DateTime cookedAt,
-      final String? saved,
+      final bool? saved,
       final String? notes}) = _$CookedMealImpl;
 
   factory _CookedMeal.fromJson(Map<String, dynamic> json) =
@@ -244,7 +244,7 @@ abstract class _CookedMeal implements CookedMeal {
   @JsonKey(name: 'cooked_at')
   DateTime get cookedAt;
   @override
-  String? get saved;
+  bool? get saved;
   @override
   String? get notes;
 

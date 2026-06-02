@@ -11,7 +11,7 @@ _$CookedMealImpl _$$CookedMealImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       recipeId: json['recipe_id'] as String,
       cookedAt: DateTime.parse(json['cooked_at'] as String),
-      saved: json['saved'] as String?,
+      saved: json['saved'] as bool?,
       notes: json['notes'] as String?,
     );
 

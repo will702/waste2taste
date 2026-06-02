@@ -10,7 +10,7 @@ class CookedMeal with _$CookedMeal {
     required String id,
     @JsonKey(name: 'recipe_id') required String recipeId,
     @JsonKey(name: 'cooked_at') required DateTime cookedAt,
-    String? saved,
+    bool? saved,
     String? notes,
   }) = _CookedMeal;
 
