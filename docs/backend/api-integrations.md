@@ -9,7 +9,7 @@
 ## Architecture
 
 ```
-Mobile App (Expo)
+Mobile App (Flutter)
        │ HTTPS + JWT Bearer
        ▼
 Node.js API Gateway  (Cloud Run, public ingress)
@@ -58,7 +58,7 @@ Tokens are Supabase JWTs — no custom signing needed.
 
 **Login** calls `supabase.auth.signInWithPassword()`. Returns the same token shape.
 
-**Logout** passes the Bearer token to `supabase.auth.signOut()` via a user-scoped client. Invalidates the session server-side.
+**Logout** validates the Bearer token and returns a logout acknowledgement. The mobile app clears its stored session token.
 
 **Me** returns `userId` and `userEmail` already extracted by auth middleware — no extra DB call.
 
@@ -96,7 +96,7 @@ Read-only catalog. No user-specific data. No RLS on this table.
 | Method | Path | Auth | Response |
 |--------|------|------|----------|
 | GET | `/recipes` | Yes | `200 [Recipe]` |
-| GET | `/recipes/recommend` | Yes | `200 [Recipe + match_pct]` |
+| GET | `/recipes/recommend` | Yes | `200 { recipes: [Recipe + match_pct] }` |
 | GET | `/recipes/:id` | Yes | `200 Recipe` |
 
 `GET /recipes/recommend` reads the requesting user's pantry, then proxies to `POST /ml/recommend` on the Python service. Returns recipes sorted by `match_pct` descending.
@@ -110,7 +110,7 @@ Read-only catalog. No user-specific data. No RLS on this table.
 | GET | `/history` | Yes | — | `200 [CookedMeal]` |
 | POST | `/history` | Yes | `{ recipe_id, notes? }` | `201 CookedMeal` |
 
-RLS enforced at DB level. The service-role Supabase client is **not** used here — the user-scoped anon client enforces isolation automatically.
+The API uses the service-role Supabase client for DB operations and must explicitly filter every user-owned query by the authenticated `user_id`.
 
 ---
 
@@ -120,10 +120,9 @@ The Node.js API proxies ML requests to the Python service. The Python service UR
 
 | Method | Path | Auth | Body | Response |
 |--------|------|------|------|----------|
-| POST | `/ml/detect` | Yes | `{ image_b64: string }` | `200 { detected_ingredients: string[] }` |
 | POST | `/ml/recommend` | Yes | `{ pantry: string[] }` | `200 { recipes: [...] }` |
 
-`image_b64` must be a base64-encoded JPEG string. Max recommended size: 2MB before encoding.
+Flutter uses on-device ML Kit for ingredient detection, so `/ml/detect` is retained only for legacy/internal compatibility and should not be called by the active mobile app.
 
 ---
 

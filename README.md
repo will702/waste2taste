@@ -2,7 +2,7 @@
 
 Minimize food waste through smart pantry management and AI-powered recipe generation.
 
-Waste2Taste is a full-stack application that helps users track their ingredients and discover recipes based on what they already have. It features a React Native mobile app, a Node.js API gateway, and a Python-based ML microservice for ingredient detection and recipe ranking.
+Waste2Taste is a full-stack application that helps users track their ingredients and discover recipes based on what they already have. It features a Flutter mobile app, a Node.js API gateway, and a Python-based ML microservice for recipe ranking.
 
 ---
 
@@ -10,17 +10,17 @@ Waste2Taste is a full-stack application that helps users track their ingredients
 
 ```mermaid
 graph TD
-    App[Mobile App - Expo] --> API[API Gateway - Node.js/Hono]
+    App[Mobile App - Flutter] --> API[API Gateway - Node.js/Hono]
     API --> DB[(Supabase Postgres)]
     API --> Auth[Supabase Auth]
     API --> ML[ML Service - Python/FastAPI]
-    ML --> Vision[Google Cloud Vision API]
+    App --> MLKit[On-device ML Kit scan]
     ML --> HF[HuggingFace Recipes Dataset]
 ```
 
-- **Frontend:** Expo/React Native mobile app with file-based routing.
+- **Frontend:** Flutter mobile app in `waste2taste_flutter/` with Riverpod, GoRouter, and on-device ML Kit scanning.
 - **API Gateway (`backend/api`):** Node.js service using Hono. Handles auth, CRUD, and proxies ML requests.
-- **ML Service (`backend/ml`):** Python microservice using FastAPI. Wraps Google Vision for photo scanning and recommends recipes from the `junwatu/indonesian-recipes` dataset.
+- **ML Service (`backend/ml`):** Python microservice using FastAPI. Recommends recipes from the `junwatu/indonesian-recipes` dataset and is called only through the API gateway.
 
 ---
 
@@ -30,7 +30,7 @@ Ensure you have the following installed:
 - **Node.js** (v20 or later)
 - **Python** (v3.11 or later)
 - **Docker** & **Docker Compose**
-- **Expo Go** app (for mobile testing)
+- **Flutter SDK** (v3.10 or later)
 
 ---
 
@@ -72,24 +72,22 @@ pip install -r requirements.txt
 uvicorn main:app --port 8001
 ```
 
-### 2. Frontend Setup
+### 2. Flutter Setup
 
 1.  **Install dependencies:**
     ```bash
-    npm install
+    cd waste2taste_flutter
+    flutter pub get
     ```
 
 2.  **Configure API URL:**
-    Create a `.env` in the root directory (based on `.env.example`) and set:
-    ```
-    EXPO_PUBLIC_API_URL=http://localhost:8080
-    ```
+    Pass the API gateway URL with `--dart-define=API_URL=...`.
+    Use `http://10.0.2.2:8080` for Android emulator local dev and `http://127.0.0.1:8080` for iOS simulator local dev.
 
 3.  **Start the app:**
     ```bash
-    npx expo start
+    flutter run -d android --dart-define=API_URL=http://10.0.2.2:8080
     ```
-    Scan the QR code with **Expo Go** or press `w` for the web version.
 
 ---
 
@@ -112,9 +110,9 @@ pytest
 
 ## 📂 Project Structure
 
-- `app/`: Expo Router file-based navigation and screens.
+- `waste2taste_flutter/`: Active Flutter app.
+- `app/`, `components/`, `context/`, `data/`, `types/`: Legacy Expo/React Native reference code.
 - `backend/api/`: Node.js API Gateway (Hono).
 - `backend/ml/`: Python ML Microservice (FastAPI).
 - `backend/supabase/migrations/`: SQL database schema.
-- `components/`: Reusable React Native UI components.
 - `docs/superpowers/`: Detailed architecture specs and implementation plans.

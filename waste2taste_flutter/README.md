@@ -1,16 +1,25 @@
-# waste2taste_flutter
+# Waste2Taste Flutter
 
-A new Flutter project.
+Active mobile frontend for Waste2Taste.
 
-## Getting Started
+## Backend Connection
 
-This project is a starting point for a Flutter application.
+The Flutter app talks only to the Hono API gateway in `../backend/api`. It does not call Supabase or the Python ML service directly.
 
-A few resources to get you started if this is your first Flutter project:
+Local API URLs:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter run -d android --dart-define=API_URL=http://10.0.2.2:8080
+flutter run -d iphone --dart-define=API_URL=http://127.0.0.1:8080
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Use the deployed API gateway URL for production builds.
+
+## Development
+
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter analyze
+flutter test
+```

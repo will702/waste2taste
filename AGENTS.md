@@ -2,17 +2,19 @@
 
 ## Project Structure & Module Organization
 
-Waste2Taste is an Expo + React Native TypeScript app with two backend services. Frontend routes live in `app/` using Expo Router, reusable UI is in `components/`, global pantry state is in `context/`, shared catalog/theme data is in `data/`, and app types are in `types/`. Static prototype files (`index.html`, `style.css`, `script.js`) are separate from the React Native app. Backend code is split into `backend/api/` for the Hono TypeScript API gateway and `backend/ml/` for the FastAPI ML service. Database migrations are in `backend/supabase/migrations/`, docs in `docs/`, and image assets in `assets/`.
+Waste2Taste is a Flutter app with two backend services. The active frontend lives in `waste2taste_flutter/` with Riverpod providers, GoRouter routes, generated Freezed models, and ML Kit ingredient scanning. Legacy Expo/React Native files remain in `app/`, `components/`, `context/`, `data/`, and `types/` for reference only. Static prototype files (`index.html`, `style.css`, `script.js`) are separate from the app. Backend code is split into `backend/api/` for the Hono TypeScript API gateway and `backend/ml/` for the FastAPI ML service. Database migrations are in `backend/supabase/migrations/`, docs in `docs/`, and image assets in `assets/`.
 
 ## Build, Test, and Development Commands
 
 Run shell commands with the local `rtk` prefix. Common commands:
 
 ```bash
-rtk npm install
-rtk npm run start       # Expo Metro bundler
-rtk npm run web         # Expo web target
-rtk npm run typecheck   # root TypeScript check
+cd waste2taste_flutter
+rtk flutter pub get
+rtk dart run build_runner build --delete-conflicting-outputs
+rtk flutter analyze
+rtk flutter test
+rtk flutter run -d android --dart-define=API_URL=http://10.0.2.2:8080
 ```
 
 For the API:
@@ -39,11 +41,11 @@ Use `rtk docker compose up` from `backend/` to run the API and ML service togeth
 
 ## Coding Style & Naming Conventions
 
-Use TypeScript for frontend and API code, Python for ML code. Follow existing naming: React components use PascalCase (`AppButton.tsx`), hooks/context use descriptive PascalCase or camelCase, route files use lowercase feature names, and tests use `*.test.ts` or `test_*.py`. Keep catalog changes centralized in `data/catalog.ts` before seeding or consuming them elsewhere.
+Use Dart for the active Flutter frontend, TypeScript for the API code, and Python for ML code. Follow existing naming: Flutter widgets use PascalCase (`app_button.dart` file, `AppButton` class), providers use descriptive snake_case filenames, generated model files stay committed, API route files use lowercase feature names, and tests use `*.test.ts`, `test_*.py`, or Flutter `*_test.dart`. Keep catalog changes centralized before seeding or consuming them elsewhere.
 
 ## Testing Guidelines
 
-Run `rtk npm run typecheck` before frontend changes. API tests use Vitest under `backend/api/tests/`; run all with `rtk npm test` or a single file such as `rtk npm test -- tests/pantry.test.ts`. ML tests use Pytest under `backend/ml/tests/`; run `rtk pytest` or `rtk pytest tests/test_detect.py`.
+Run `rtk flutter analyze` and `rtk flutter test` before Flutter changes. API tests use Vitest under `backend/api/tests/`; run all with `rtk npm test` or a single file such as `rtk npm test -- tests/pantry.test.ts`. ML tests use Pytest under `backend/ml/tests/`; run `rtk pytest` or `rtk pytest tests/test_detect.py`.
 
 ## Commit & Pull Request Guidelines
 

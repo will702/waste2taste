@@ -1,7 +1,8 @@
 import { Hono } from 'hono'
 import { authMiddleware } from '../middleware/auth.js'
+import type { AppEnv } from '../types.js'
 
-export const ml = new Hono()
+export const ml = new Hono<AppEnv>()
 ml.use('*', authMiddleware)
 
 const mlFetch = (path: string, body: unknown) =>

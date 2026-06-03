@@ -27,6 +27,7 @@ def load_dataset_on_startup() -> None:
 
 def _preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
+    df.columns = [str(column).strip().lower() for column in df.columns]
     df["parsed_ingredients"] = df["ingredients"].apply(_parse_ingredients)
     return df
 

@@ -1,8 +1,9 @@
 import { Hono } from 'hono'
 import { authMiddleware } from '../middleware/auth.js'
 import { supabase } from '../lib/supabase.js'
+import type { AppEnv } from '../types.js'
 
-export const history = new Hono()
+export const history = new Hono<AppEnv>()
 history.use('*', authMiddleware)
 
 history.get('/', async (c) => {
