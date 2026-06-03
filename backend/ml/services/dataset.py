@@ -1,6 +1,7 @@
 import re
-from typing import Optional
+from typing import Optional, Union
 import pandas as pd
+import numpy as np
 from datasets import load_dataset
 from rapidfuzz import fuzz
 
@@ -26,14 +27,18 @@ def load_dataset_on_startup() -> None:
 
 def _preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    df["parsed_ingredients"] = df["Ingredients"].apply(_parse_ingredients)
+    df["parsed_ingredients"] = df["ingredients"].apply(_parse_ingredients)
     return df
 
 
-def _parse_ingredients(raw: str) -> list[str]:
-    if not raw or not isinstance(raw, str):
+def _parse_ingredients(raw: Union[str, list, np.ndarray]) -> list[str]:
+    if isinstance(raw, (list, np.ndarray)):
+        items = [str(i) for i in raw]
+    elif isinstance(raw, str):
+        items = re.split(r"[,;\n•·]", raw)
+    else:
         return []
-    items = re.split(r"[,;\n•·]", raw)
+    
     return [re.sub(r"[^\w\s]", "", item).strip().lower() for item in items if item.strip()]
 
 
@@ -74,12 +79,12 @@ def recommend_recipes(pantry: list[str], top_n: int = 10) -> list[dict]:
 
         if score >= 0.5:
             results.append({
-                "id": str(row.get("Title", "unknown")).lower().replace(" ", "-"),
-                "title": row.get("Title", "Unknown"),
+                "id": str(row.get("title", "unknown")).lower().replace(" ", "-"),
+                "title": row.get("title", "Unknown"),
                 "match_pct": round(score * 100),
                 "missing": sorted(recipe_catalog_ids - pantry_set),
                 "catalog_ingredients": sorted(recipe_catalog_ids),
-                "instructions": str(row.get("Steps", ""))[:500],
+                "instructions": str(row.get("steps", ""))[:500],
             })
 
     results.sort(key=lambda x: x["match_pct"], reverse=True)

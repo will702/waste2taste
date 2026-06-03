@@ -1,7 +1,9 @@
+import 'dotenv/config'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { HTTPException } from 'hono/http-exception'
+import { serve } from '@hono/node-server'
 import { auth } from './routes/auth.js'
 import { ingredients } from './routes/ingredients.js'
 import { pantry } from './routes/pantry.js'
@@ -35,4 +37,9 @@ app.onError((err, c) => {
 const port = Number(process.env.PORT ?? 8080)
 console.log(`API running on port ${port}`)
 
-export default { port, fetch: app.fetch }
+serve({
+  fetch: app.fetch,
+  port
+})
+
+export default app
