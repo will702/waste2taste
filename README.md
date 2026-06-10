@@ -18,13 +18,86 @@ graph TD
     ML --> HF[HuggingFace Recipes Dataset]
 ```
 
-![System architecture](docs/assets/diagrams/architecture.svg)
-
 - **Frontend:** Flutter mobile app in `waste2taste_flutter/` with Riverpod, GoRouter, and on-device ML Kit scanning.
 - **API Gateway (`backend/api`):** Node.js service using Hono. Handles auth, CRUD, and proxies ML requests.
 - **ML Service (`backend/ml`):** Python microservice using FastAPI. Recommends recipes from the `junwatu/indonesian-recipes` dataset and is called only through the API gateway.
 
-See [docs/architecture.md](docs/architecture.md) for detailed data-flow diagrams.
+See [docs/architecture.md](docs/architecture.md) for deployment topology and security boundaries.
+
+### Authentication flow
+
+```mermaid
+sequenceDiagram
+    participant App as Flutter App
+    participant API as API Gateway
+    participant Auth as Supabase Auth
+    participant DB as Supabase Postgres
+
+    App->>API: POST /auth/register or /auth/login
+    API->>Auth: signUp / signInWithPassword
+    Auth-->>API: access_token + refresh_token
+    API-->>App: JWT stored in secure storage
+
+    App->>API: GET /pantry (Authorization Bearer)
+    API->>Auth: getUser(token)
+    Auth-->>API: user id
+    API->>DB: query pantry_items (RLS filters by user)
+    DB-->>API: rows
+    API-->>App: pantry JSON
+```
+
+### Recipe recommendation flow
+
+```mermaid
+sequenceDiagram
+    participant App as Flutter App
+    participant API as API Gateway
+    participant DB as Supabase Postgres
+    participant ML as ML Service
+
+    App->>API: GET /recipes/recommend (JWT)
+    API->>DB: read user pantry ingredient IDs
+    DB-->>API: pantry IDs
+    API->>ML: POST /recommend pantry IDs
+    ML-->>API: top recipes with match_pct
+    API-->>App: ranked recipe list
+```
+
+### Ingredient scan flow (Flutter)
+
+```mermaid
+sequenceDiagram
+    participant App as Flutter App
+    participant MLKit as ML Kit on-device
+    participant Aliases as ingredient_aliases.dart
+    participant API as API Gateway
+    participant DB as Supabase Postgres
+
+    App->>App: capture photo
+    App->>MLKit: ImageLabeler labels
+    MLKit-->>App: labels confidence >= 0.70
+    App->>Aliases: fuzzy match Dice >= 0.80
+    Aliases-->>App: catalog ingredient IDs
+    App->>API: POST /pantry batch add
+    API->>DB: upsert pantry_items
+    DB-->>API: updated rows
+    API-->>App: success
+```
+
+### Flutter provider graph
+
+```mermaid
+graph TD
+    authProvider[authProvider] --> apiClient[apiClientProvider]
+    authProvider --> router[GoRouter redirect]
+    pantryProvider[pantryProvider] --> apiClient
+    pantryProvider --> recipesProvider[recipesProvider]
+    pantryProvider --> recommendationsProvider[recommendationsProvider]
+    historyProvider[historyProvider] --> apiClient
+    recipesProvider --> apiClient
+    recommendationsProvider --> apiClient
+    mlKitService[mlKitServiceProvider] --> scanScreen[ScanScreen]
+```
 
 ---
 
