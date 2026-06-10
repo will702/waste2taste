@@ -11,7 +11,7 @@
 ### `ingredients`
 Migration: `001_ingredients.sql`
 
-Ingredient catalog. Seeded from `data/catalog.ts`. Read-only at runtime — no user writes.
+Ingredient catalog. Seeded from [`backend/api/scripts/seed.ts`](../../backend/api/scripts/seed.ts). Read-only at runtime — no user writes.
 
 | Column | Type | Constraints | Notes |
 |--------|------|-------------|-------|
@@ -48,7 +48,7 @@ Per-user pantry state. Each row = one ingredient a user currently has.
 ### `recipes`
 Migration: `003_recipes.sql`
 
-Recipe catalog. Seeded from `data/catalog.ts` and optionally from the HuggingFace `junwatu/indonesian-recipes` dataset.
+Recipe catalog. Seeded from [`backend/api/scripts/seed.ts`](../../backend/api/scripts/seed.ts) and optionally from the HuggingFace `junwatu/indonesian-recipes` dataset.
 
 | Column | Type | Constraints | Notes |
 |--------|------|-------------|-------|
@@ -182,4 +182,6 @@ cd backend/api && npx tsx scripts/seed.ts
 
 ## Seed Data
 
-`backend/api/scripts/seed.ts` reads from `data/catalog.ts` (the same source used by the Expo frontend) and inserts rows into `ingredients` and `recipes` + `recipe_ingredients`. Safe to re-run — uses `upsert` with `onConflict: 'id'`.
+[`backend/api/scripts/seed.ts`](../../backend/api/scripts/seed.ts) contains inline ingredient and recipe definitions and inserts rows into `ingredients`, `recipes`, and `recipe_ingredients`. Safe to re-run — uses `upsert` with `onConflict: 'id'`.
+
+When adding catalog items, also update the Flutter display catalog at `waste2taste_flutter/lib/data/catalog.dart` to keep UI and database in sync. See [Contributing](../contributing.md).

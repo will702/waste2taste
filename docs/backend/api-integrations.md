@@ -4,6 +4,8 @@
 **Stack:** Node.js 20 + Hono (TypeScript), Cloud Run  
 **Source:** `backend/api/`
 
+For system-level architecture and data-flow diagrams see [Architecture](../architecture.md).
+
 ---
 
 ## Architecture

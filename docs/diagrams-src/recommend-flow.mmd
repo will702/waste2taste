@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant App as Flutter App
+    participant API as API Gateway
+    participant DB as Supabase Postgres
+    participant ML as ML Service
+
+    App->>API: GET /recipes/recommend (JWT)
+    API->>DB: read user pantry ingredient IDs
+    DB-->>API: pantry IDs
+    API->>ML: POST /recommend pantry IDs
+    ML-->>API: top recipes with match_pct
+    API-->>App: ranked recipe list

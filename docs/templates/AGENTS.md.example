@@ -1,0 +1,56 @@
+# Repository Guidelines
+
+Copy to `AGENTS.md` in the repo root for local AI assistant use. This file is gitignored.
+
+## Project Structure
+
+Waste2Taste is a Flutter app with two backend services:
+
+- `waste2taste_flutter/` — active Flutter frontend (Riverpod, GoRouter, ML Kit)
+- `backend/api/` — Hono TypeScript API gateway
+- `backend/ml/` — FastAPI ML microservice (internal-only)
+- `backend/supabase/migrations/` — database schema
+- `docs/` — human documentation
+
+## Build, Test, and Development Commands
+
+```bash
+cd waste2taste_flutter
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter analyze
+flutter test
+flutter run -d android --dart-define=API_URL=http://10.0.2.2:8080
+```
+
+```bash
+cd backend/api
+npm install
+npm run dev
+npm test
+npm run build
+```
+
+```bash
+cd backend/ml
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8001
+pytest
+```
+
+Use `docker compose up` from `backend/` to run the API and ML service together.
+
+## Catalog Data
+
+When adding ingredients or recipes, update both:
+
+- `backend/api/scripts/seed.ts` — database seed
+- `waste2taste_flutter/lib/data/catalog.dart` — UI display catalog
+
+Then re-run `npm run seed` from `backend/api/`.
+
+## Security
+
+Do not commit real secrets. Start from `.env.example`, `backend/api/.env.example`, and `backend/ml/.env.example`. Keep the ML service internal; frontend requests go through the API gateway.

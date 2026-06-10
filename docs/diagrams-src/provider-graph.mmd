@@ -1,0 +1,10 @@
+graph TD
+    authProvider[authProvider] --> apiClient[apiClientProvider]
+    authProvider --> router[GoRouter redirect]
+    pantryProvider[pantryProvider] --> apiClient
+    pantryProvider --> recipesProvider[recipesProvider]
+    pantryProvider --> recommendationsProvider[recommendationsProvider]
+    historyProvider[historyProvider] --> apiClient
+    recipesProvider --> apiClient
+    recommendationsProvider --> apiClient
+    mlKitService[mlKitServiceProvider] --> scanScreen[ScanScreen]

@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant App as Flutter App
+    participant API as API Gateway
+    participant Auth as Supabase Auth
+    participant DB as Supabase Postgres
+
+    App->>API: POST /auth/register or /auth/login
+    API->>Auth: signUp / signInWithPassword
+    Auth-->>API: access_token + refresh_token
+    API-->>App: JWT stored in secure storage
+
+    App->>API: GET /pantry (Authorization Bearer)
+    API->>Auth: getUser(token)
+    Auth-->>API: user id
+    API->>DB: query pantry_items (RLS filters by user)
+    DB-->>API: rows
+    API-->>App: pantry JSON

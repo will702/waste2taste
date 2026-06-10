@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant App as Flutter App
+    participant MLKit as ML Kit on-device
+    participant Aliases as ingredient_aliases.dart
+    participant API as API Gateway
+    participant DB as Supabase Postgres
+
+    App->>App: capture photo
+    App->>MLKit: ImageLabeler labels
+    MLKit-->>App: labels confidence >= 0.70
+    App->>Aliases: fuzzy match Dice >= 0.80
+    Aliases-->>App: catalog ingredient IDs
+    App->>API: POST /pantry batch add
+    API->>DB: upsert pantry_items
+    DB-->>API: updated rows
+    API-->>App: success

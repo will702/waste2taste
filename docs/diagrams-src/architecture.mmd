@@ -1,0 +1,7 @@
+graph TD
+    App[Mobile App - Flutter] --> API[API Gateway - Node.js/Hono]
+    API --> DB[(Supabase Postgres)]
+    API --> Auth[Supabase Auth]
+    API --> ML[ML Service - Python/FastAPI]
+    App --> MLKit[On-device ML Kit scan]
+    ML --> HF[HuggingFace Recipes Dataset]
